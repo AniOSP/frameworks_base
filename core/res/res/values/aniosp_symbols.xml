@@ -39,6 +39,10 @@
     <java-symbol type="integer" name="config_deviceHardwareKeys" />
     <java-symbol type="integer" name="config_deviceHardwareWakeKeys" />
 
+    <!-- HW keys binding -->
+    <java-symbol type="anim" name="custom_app_in" />
+    <java-symbol type="anim" name="custom_app_out" />
+
     <!-- Device keys user-customisable behavior -->
     <java-symbol type="integer" name="config_longPressOnBackBehavior" />
     <java-symbol type="integer" name="config_longPressOnHomeBehavior" />

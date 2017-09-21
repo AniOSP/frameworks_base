@@ -210,6 +210,9 @@ import com.android.internal.statusbar.IStatusBarService;
 import com.android.internal.util.ArrayUtils;
 import com.android.server.ExtconStateObserver;
 import com.android.server.ExtconUEventObserver;
+import com.android.internal.util.hwkeys.ActionHandler;
+import com.android.internal.util.hwkeys.ActionUtils;
+import com.android.internal.util.ScreenshotHelper;
 import com.android.server.GestureLauncherService;
 import com.android.server.LocalServices;
 import com.android.server.SystemServiceManager;
@@ -514,6 +517,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private int mDeviceHardwareKeys;
     private boolean mHasNavigationBar;
     private boolean mHandleVolumeKeysInWM;
+    private HardkeyActionHandler mKeyHandler;
 
     // Button wake control flags
     boolean mWakeOnHomeKeyPress;
@@ -728,6 +732,16 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 case MSG_CAMERA_LONG_PRESS:
                     KeyEvent event = (KeyEvent) msg.obj;
                     mIsLongPress = true;
+                case HardkeyActionHandler.MSG_FIRE_HOME:
+                    launchHomeFromHotKey(DEFAULT_DISPLAY);
+                    break;
+//                case HardkeyActionHandler.MSG_UPDATE_MENU_KEY:
+//                    synchronized (mLock) {
+//                        mHasPermanentMenuKey = msg.arg1 == 1;
+//                    }
+//                    break;
+                case HardkeyActionHandler.MSG_DO_HAPTIC_FB:
+                    performHapticFeedback(HapticFeedbackConstants.LONG_PRESS, false, "Hardkey Long-Press");
                     break;
             }
         }
@@ -1852,6 +1866,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
         mHandler = new PolicyHandler();
         mWakeGestureListener = new MyWakeGestureListener(mContext, mHandler);
+        // only for hwkey devices
+        if (!mContext.getResources().getBoolean(
+                com.android.internal.R.bool.config_showNavigationBar)) {
+            mKeyHandler = new HardkeyActionHandler(mContext, mHandler);
+        }
         mSettingsObserver = new SettingsObserver(mHandler);
         mModifierShortcutManager = new ModifierShortcutManager(context);
         mUiMode = context.getResources().getInteger(
@@ -5901,6 +5920,16 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     @Override
     public boolean hasNavigationBar() {
         return mDefaultDisplayPolicy.hasNavigationBar();
+    }
+
+    @Override
+    public void sendCustomAction(Intent intent) {
+        String action = intent.getAction();
+        if (action != null) {
+            if (ActionHandler.INTENT_SHOW_POWER_MENU.equals(action)) {
+                showGlobalActions();
+            }
+        }
     }
 
     @Override
