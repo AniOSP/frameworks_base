@@ -147,7 +147,7 @@ public class AntiFlickerTile extends QSTileImpl<BooleanState> {
 
     @Override
     public int getMetricsCategory() {
-        return MetricsEvent.CUSTOM_SETTINGS;
+        return MetricsEvent.ANIOSP_SETTINGS;
     }
 
     @Override
