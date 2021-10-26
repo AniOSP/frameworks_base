@@ -7436,8 +7436,9 @@ message MetricsEvent {
     // Add new aosp constants above this line.
     // END OF AOSP CONSTANTS
 
-    // CustomSettings constant
-    CUSTOM_SETTINGS = 1999;
-
+    // ANIOSP Metrics
+    ANIOSP = 2772;
+    CASTER = 2773;
+    ANIOSP_SETTINGS = 2774;
   }
 }
