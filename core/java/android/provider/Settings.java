@@ -5550,6 +5550,12 @@ public final class Settings {
         public static final String POWERMENU_ONTHEGO = "powermenu_onthego";
 
         /**
+         * Whether to display the Device controls option in the power menu
+         * @hide
+         */
+        public static final String POWERMENU_DEVICECONTROLS = "powermenu_devicecontrols";
+
+        /**
          * IMPORTANT: If you add a new public settings you also have to add it to
          * PUBLIC_SETTINGS below. If the new setting is hidden you have to add
          * it to PRIVATE_SETTINGS below. Also add a validator that can validate
