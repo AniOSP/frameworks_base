@@ -508,7 +508,7 @@ public class NavigationBarInflaterView extends FrameLayout
         } else if (button.startsWith(KEY)) {
             String uri = extractImage(button);
             int code = extractKeycode(button);
-            v = inflater.inflate(R.layout.custom_key, parent, false);
+            v = inflater.inflate(R.layout.aniosp_key, parent, false);
             ((KeyButtonView) v).setCode(code);
             if (uri != null) {
                 if (uri.contains(":")) {
