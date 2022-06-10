@@ -140,7 +140,6 @@ public class Fingerprint21UdfpsMock extends Fingerprint21 implements TrustManage
                 @Nullable GestureAvailabilityDispatcher gestureAvailabilityDispatcher) {
             super(context, tag, BiometricScheduler.SENSOR_TYPE_FP_OTHER,
                     gestureAvailabilityDispatcher);
-            }
         }
 
         void init(@NonNull Fingerprint21UdfpsMock fingerprint21) {
